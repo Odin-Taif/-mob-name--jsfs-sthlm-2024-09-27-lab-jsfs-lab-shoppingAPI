@@ -1,7 +1,6 @@
 {
-  "testPathIgnorePatterns": [
-    "/node_modules/",
-    "/config",
-    "/e2e/"
-  ]
+  "testPathIgnorePatterns": ["/node_modules/", "/config", "/e2e/"],
+  "transform": {
+    "^.+.tsx?$": ["ts-jest", {}]
+  }
 }
