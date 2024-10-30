@@ -1,7 +1,8 @@
 import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
-import { productRouter } from "./product/index";
+import { productRouter } from "./product";
+import { cartRouter } from "./cart";
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Add your own middlware here!
 app.use("/api/products", productRouter);
+
+app.use("/api/carts", cartRouter);
 
 export default app;

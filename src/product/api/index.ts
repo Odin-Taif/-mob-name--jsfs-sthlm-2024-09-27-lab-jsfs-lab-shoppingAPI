@@ -1,12 +1,9 @@
 import express from "express";
 import { readdir, readFile } from "fs/promises";
-import { Product } from "../../../e2e-types";
 
 export const productRouter: express.Router = express.Router();
+
 const productsDir: string = "src/db/development/products";
-// we get the products from the db/development/products
-// we get them async
-//try and catch block is used here for error handling.
 
 const products = async (dirPath: string) => {
   try {
