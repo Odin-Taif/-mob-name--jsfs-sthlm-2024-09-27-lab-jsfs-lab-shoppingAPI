@@ -34,7 +34,7 @@ describe("The Products API", () => {
     assert.equal(price, "29.99");
   });
 
-  test.skip("not found", async () => {
+  test("not found", async () => {
     await request(server).get("/api/products/foo").expect(404);
   });
 });
