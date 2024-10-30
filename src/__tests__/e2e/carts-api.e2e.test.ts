@@ -32,7 +32,7 @@ describe("The Carts API", () => {
     server.close(done);
   });
 
-  test.skip("create new cart", async () => {
+  test("create new cart", async () => {
     const resp = await request(server).post("/api/carts").expect(201);
 
     const {

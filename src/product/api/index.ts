@@ -26,7 +26,7 @@ productRouter.get("/", async (req, res) => {
   try {
     res.status(200).json(productsList);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 });
 
@@ -41,6 +41,6 @@ productRouter.get("/:id", async (req, res) => {
 
     res.status(200).json(product);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 });
