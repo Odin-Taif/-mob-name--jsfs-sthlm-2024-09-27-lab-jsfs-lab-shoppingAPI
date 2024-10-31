@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 // Add your own middlware here!
 app.use("/api/products", productRouter);
 

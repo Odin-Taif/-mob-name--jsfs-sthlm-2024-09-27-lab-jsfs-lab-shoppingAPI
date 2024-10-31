@@ -42,23 +42,29 @@ cartRouter.get("/:id", async (req, res) => {
 
 cartRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
-  if (!req.is("application/json")) {
-    return res
-      .status(400)
-      .send("Invalid content type. Expected 'application/json'.");
+  const product = req.body;
+
+  if (
+    !req.is("application/json") &&
+    !req.is("application/x-www-form-urlencoded")
+  ) {
+    return res.status(400).send("Invalid content type.");
   }
   try {
-    const cartPath = path.join(cartDir, `${id}`);
-    const cartData = await readFile(cartPath, "utf-8");
-    const cart = JSON.parse(cartData);
-    // console.log(cart);
-    cart.products.push(req.body);
-    await writeFile(cartPath, JSON.stringify(cart));
-    res.status(204).send("Added a product to cart");
+    await addProductToCart(id, product);
+    res.status(204).send("item has been added");
   } catch (error) {
     // console.log(error);
   }
 });
+
+const addProductToCart = async (id, product) => {
+  const cartPath = path.join(cartDir, `${id}`);
+  const cartData = await readFile(cartPath, "utf-8");
+  const cart = JSON.parse(cartData);
+  cart.products.push(product);
+  await writeFile(cartPath, JSON.stringify(cart));
+};
 
 const createNewCart = async (
   cartsDir: string,
