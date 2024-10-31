@@ -44,7 +44,7 @@ describe("The Carts API", () => {
     assert.equal(location, `/api/carts/${id}`);
   });
 
-  test.skip("reject invalid content type", async () => {
+  test("reject invalid content type", async () => {
     const resp = await request(server).post("/api/carts").expect(201);
 
     const { id }: Cart = JSON.parse(resp.text);
