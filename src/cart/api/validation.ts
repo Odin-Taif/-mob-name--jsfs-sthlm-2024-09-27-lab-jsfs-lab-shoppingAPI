@@ -6,7 +6,7 @@ import Joi from "@hapi/joi";
 export const itemSchema = Joi.object().keys({
   id: Joi.string().required(),
   item: Joi.string().required(),
-  quantity: Joi.number().integer().required(),
+  quantity: Joi.number().integer().positive().required(),
   price: Joi.number().positive().required(),
 });
 
