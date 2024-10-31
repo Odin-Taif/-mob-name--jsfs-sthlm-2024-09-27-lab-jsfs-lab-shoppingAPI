@@ -173,7 +173,7 @@ describe("The Carts API", () => {
     assert.equal(price * quantity, expPrice);
   });
 
-  test.skip("add item and validate price", async () => {
+  test("add item and validate price", async () => {
     const r0 = await request(server).post("/api/carts").expect(201);
 
     const { id }: Cart = JSON.parse(r0.text);

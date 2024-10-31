@@ -5,6 +5,7 @@ import { Product } from "../../../e2e-types";
 import { readFile } from "fs/promises";
 import path from "path";
 import { readdir } from "fs/promises";
+import { itemSchema } from "./validation";
 
 export const cartRouter: express.Router = express.Router();
 const cartDir = "src/db/test/carts";
@@ -31,7 +32,6 @@ cartRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const filesInCartDir = await readdir(cartDir);
-    // console.log(filesInCartDir);
     if (filesInCartDir.includes(id)) {
       const cartPath = path.join(cartDir, `${id}`);
       const cartData = await readFile(cartPath, "utf-8");
@@ -48,16 +48,21 @@ cartRouter.get("/:id", async (req, res) => {
 
 cartRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
-  const product = req.body;
-
+  const { error, value } = itemSchema.validate(req.body);
+  const validatedProduct = value;
+  if (error) {
+    return res.status(400).send();
+  }
   if (
-    !req.is("application/json") &&
-    !req.is("application/x-www-form-urlencoded")
+    (!req.is("application/json") &&
+      !req.is("application/x-www-form-urlencoded")) ||
+    error
   ) {
     return res.status(400).send("Invalid content type.");
   }
+
   try {
-    await addProductToCart(id, product);
+    await addProductToCart(id, validatedProduct);
     return res.status(204).send("item has been added");
   } catch (error) {
     // console.log(error);
