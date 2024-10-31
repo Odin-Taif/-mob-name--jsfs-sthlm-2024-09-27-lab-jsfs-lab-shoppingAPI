@@ -104,7 +104,7 @@ describe("The Carts API", () => {
     assert.deepEqual(products[0], product);
   });
 
-  test.skip("create -> get -> delete -> get -> delete", async () => {
+  test("create -> get -> delete -> get -> delete", async () => {
     const r0 = await request(server).post("/api/carts").expect(201);
 
     const { id }: Cart = JSON.parse(r0.text);
@@ -115,7 +115,7 @@ describe("The Carts API", () => {
     await request(server).delete(`/api/carts/${id}`).expect(204);
   });
 
-  test.skip("add many items", async () => {
+  test("add many items", async () => {
     const r0 = await request(server).post("/api/carts").expect(201);
 
     const { id }: Cart = JSON.parse(r0.text);
