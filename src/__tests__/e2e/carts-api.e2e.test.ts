@@ -52,7 +52,7 @@ describe("The Carts API", () => {
     await request(server).patch(`/api/carts/${id}`).expect(400);
   });
 
-  test.skip("create -> add item as json -> get content", async () => {
+  test("create -> add item as json -> get content", async () => {
     const r0 = await request(server).post("/api/carts").expect(201);
 
     const { id }: Cart = JSON.parse(r0.text);
